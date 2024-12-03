@@ -45,3 +45,5 @@ Work on implementing auto encoder.
 ### 12/3/24
 
 1.5 hours
+
+Debug autoencoder. Got it working, but loss is all over the place.
