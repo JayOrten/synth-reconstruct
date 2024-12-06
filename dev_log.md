@@ -53,3 +53,9 @@ Debug autoencoder. Got it working, but loss is all over the place.
 2 hours
 
 Test autoencoder on simple cifar10 example to verify it works. It appears to be working after 20 epochs. So, I tried to swap out for my data. Got it working, and checking the images and reconstructions it's clear that the decibel representations of the spectrograms are not translating properly to the actual images...rather than using the decibels, I may need the actual pixel values of the spectrogram. Still a little confused by this.
+
+### 12/6/24
+
+1.5 hours
+
+Worked on the spectrogram processing. Got the dataset to load the raw image data, but still seeing crazy loss when training on this. Might need to look into the image format, normalization, etc.
