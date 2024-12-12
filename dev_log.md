@@ -59,3 +59,19 @@ Test autoencoder on simple cifar10 example to verify it works. It appears to be 
 1.5 hours
 
 Worked on the spectrogram processing. Got the dataset to load the raw image data, but still seeing crazy loss when training on this. Might need to look into the image format, normalization, etc.
+
+### 12/11/24
+
+3 hours
+
+Debugging loss issue - I just want to get the model to learn to recreate the image well.
+
+Normalizing the image to be between 0 and 1 looks to fix the loss problem: now, the image is gradually being recreated, and loss goes down appropriately. However, it appears there's a memory leak, and torch isn't finding the gpu. Updated torch to cuda version(looks like it accidently reinstalled cpu version). 
+
+For some reason it gets to 30% of the epoch, and gradually slows way down. RAM is going up but gpu memory is staying the same, so there's probably a memory leak issue with my data loading...found that generating images on the fly is just slow, and it's keeping something in memory when it does it. So I just went ahead and generated spectrograms for all of the data. Lesson learned: dynamically creating training data during training is a bad idea.
+
+Autoencoder appears to be working now, I need to use the full size image with a larger model, instead of just a crop. This makes me wonder if the CNN would work better on the normalized data.
+
+### 12/12/24
+
+Tried using update image loading/normalization method on the CNN - still having the same issue
