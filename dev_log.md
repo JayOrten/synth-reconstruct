@@ -74,4 +74,22 @@ Autoencoder appears to be working now, I need to use the full size image with a 
 
 ### 12/12/24
 
-Tried using update image loading/normalization method on the CNN - still having the same issue
+4 hours
+
+Tried using update image loading/normalization method on the CNN - still having the same issue.
+
+Worked on getting the autoencoder working for the full spectrograms. Ran out of memory on my GPU for 400x400 pixel images, so I need to move to the supercomputer, but I'm going to test with smaller images first. Worked with 128
+
+Now, I need to save the encoder only, and take the latent representation it produces for classification. Added code for this.
+
+### 12/13/24
+
+5 hours
+
+Tested code for classifiers. Initial results show the same behaviour as the CNN: all predictions are about .5. Going to try on a bigger model, just predicting one feature, and look into MSE a bit more.
+
+I'm curious if I just need to let it train for a long time, on a lot of data. It makes sense that the model would initially pick out .5. With enough parameters, couldn't it learn the space in more detail? Letting it cook for a while brought the r2 score up to .14, which is better than before. The predictions look better too.
+
+I trained to just predict one of the parameters. After about 30 min, the r2 score ended up at .99. Great! The actual predictions look excellent as well. If the full multioutput regression fails even after a lot of training, I can still train seperate regression heads for each parameter, and then just combine results at inference time.
+
+Cleaned up my demo/experimental code, created scripts, and moved to the supercomputer for testing.
