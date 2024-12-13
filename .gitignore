@@ -1,7 +1,2 @@
-/demo/predictions/*
-/demo/sample_images/*
-/demo/samples/*
-/demo/autoencoder/data/*
-/demo/autoencoder/generated_images/*
 /demo/autoencoder/saved_models/*
-/demo/autoencoder/checkpoint/*
+/data/*
