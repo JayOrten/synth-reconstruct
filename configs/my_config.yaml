@@ -1,0 +1,8 @@
+latent_dim: 128
+max_epochs: 200
+
+checkpoint_path: /home/jo288/nobackup/autodelete/synth-reconstruct/runs
+data_path: /home/jo288/nobackup/autodelete/synth-reconstruct/data/spectrograms/400x400
+presets_csv_path: /home/jo288/nobackup/autodelete/synth-reconstruct/data/presets.csv
+
+encoder_model_checkpoint: 
