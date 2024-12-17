@@ -90,6 +90,20 @@ Tested code for classifiers. Initial results show the same behaviour as the CNN:
 
 I'm curious if I just need to let it train for a long time, on a lot of data. It makes sense that the model would initially pick out .5. With enough parameters, couldn't it learn the space in more detail? Letting it cook for a while brought the r2 score up to .14, which is better than before. The predictions look better too.
 
-I trained to just predict one of the parameters. After about 30 min, the r2 score ended up at .99. Great! The actual predictions look excellent as well. If the full multioutput regression fails even after a lot of training, I can still train seperate regression heads for each parameter, and then just combine results at inference time.
+I trained to just predict one of the parameters. After about 30 min, the r2 score ended up at .99. Great! Upon closer look, I realized that the model had overfit pretty badly.
+
+To ammend this, I wanted to try with more data, and perhaps some regularization of some sort.
+
+At this point, it began to become pretty clear what one of the core issues with this problem might be: the spectrogram data just may not be predictive enough of each parameter. There might be some parameters that don't manifest themselves in the spectrograms
+
+It was at this point that I realized I had made a terrible mistake: the spectrogram color intensities, representing decibels, are scaled. This is fine for just looking at the spectrogram, but ruins it as input data. My lack of knowledge about spectrograms is really hurting me here.
 
 Cleaned up my demo/experimental code, created scripts, and moved to the supercomputer for testing.
+
+### 12/16/24
+
+4 hours
+
+Experimented with other spectrogram methods, but ultimately decided to ignore the intensity issue. Working with the raw spectrogram data, before converting to DB, just doesn't seem to work, and there's not a clear way to avoid normalization when converting to DB. It won't work for predicting volume, but maybe predicting other parameters will work.
+
+Worked on setting up scripts for a larger model
