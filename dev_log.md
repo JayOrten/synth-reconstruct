@@ -106,4 +106,16 @@ Cleaned up my demo/experimental code, created scripts, and moved to the supercom
 
 Experimented with other spectrogram methods, but ultimately decided to ignore the intensity issue. Working with the raw spectrogram data, before converting to DB, just doesn't seem to work, and there's not a clear way to avoid normalization when converting to DB. It won't work for predicting volume, but maybe predicting other parameters will work.
 
-Worked on setting up scripts for a larger model
+Worked on setting up scripts for a larger model. Launched final job for autoencoder on all large spectrograms.
+
+### 12/17/24
+
+1 hour
+
+Fixed some bugs, launched final run for classifier on all of the data.
+
+### 12/18/24
+
+1 hour
+
+Final analysis on results.
