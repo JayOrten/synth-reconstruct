@@ -8,13 +8,14 @@ import torchvision
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import Callback, ModelCheckpoint, LearningRateMonitor
 from torch.utils.data import DataLoader
+import sys
 
 from models import Classifier
 from dataset import AudioDS
 
 def train(config): 
     print("loading dataset")
-    dataset = AudioDS(config["presets_csv_path"], config["spectrograms_path"])
+    dataset = AudioDS(config["presets_csv_path"], config["data_path"])
     pl.seed_everything(42)
     num_train = int(0.9 * len(dataset))
     num_val = len(dataset) - num_train
@@ -28,7 +29,7 @@ def train(config):
 
     print('creating trainer')
     trainer = pl.Trainer(
-        default_root_dir=os.path.join(config["checkpoint_path"], "classifier_%i" % latent_dim),
+        default_root_dir=os.path.join(config["checkpoint_path"], "classifier_%i" % config["latent_dim"]),
         accelerator="auto",
         devices=1,
         max_epochs=config["max_epochs"],
@@ -53,8 +54,10 @@ def train(config):
 
 
 def main():
+    args = sys.argv
+    config_path = args[1]
     # get parameters from config file, which is a yaml file
-    with open(config, "r") as file:
+    with open(config_path, "r") as file:
         config = yaml.safe_load(file)
 
     train(config)

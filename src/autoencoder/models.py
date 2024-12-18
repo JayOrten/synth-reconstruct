@@ -174,7 +174,7 @@ class Classifier(pl.LightningModule):
         # print('x.shape: ', y.shape)
         # print('x_hat.shape: ', y_hat.shape)
         # Take the first value of y as the only label for prediction
-        y = y[:, 0].unsqueeze(1)
+        # y = y[:, 0].unsqueeze(1)
         y = y.float()
         y_hat = y_hat.float()
         loss = F.mse_loss(y, y_hat)

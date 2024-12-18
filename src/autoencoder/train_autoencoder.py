@@ -8,6 +8,7 @@ import torchvision
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import Callback, ModelCheckpoint, LearningRateMonitor
 from torch.utils.data import DataLoader
+import sys
 
 from models import Autoencoder
 from dataset import AudioDS
@@ -43,7 +44,7 @@ def get_train_images(num, train_dataset):
 
 def train(config):
     print("loading dataset")
-    dataset = AudioDS(config["presets_csv_path"], config["spectrograms_path"])
+    dataset = AudioDS(config["presets_csv_path"], config["data_path"])
     pl.seed_everything(42)
     num_train = int(0.9 * len(dataset))
     num_val = len(dataset) - num_train
@@ -87,14 +88,12 @@ def train(config):
     # test_result = trainer.test(model, dataloaders=test_loader, verbose=False)
     # result = {"test": test_result, "val": val_result}
     result = {"val": val_result}
-    latent_dim = config["latent_dim"]
-    # Save the model checkpoint. Not strictly necessary because lightning is also saving it, but just to be safe
-    checkpoint_filename = Path(config["checkpoint_path"]) / f"final_model_dim_{latent_dim}" / "final_checkpoint.ckpt"
-    torch.save(model.state_dict(), checkpoint_filename)
 
-def main(config):
+def main():
+    args = sys.argv
+    config_path = args[1]
     # get parameters from config file, which is a yaml file
-    with open(config, "r") as file:
+    with open(config_path, "r") as file:
         config = yaml.safe_load(file)
 
     train(config)
